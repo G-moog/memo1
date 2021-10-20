@@ -1,5 +1,8 @@
 package com.example.memo1;
 
+import static com.example.memo1.MainActivity.add_item;
+import static com.example.memo1.MainActivity.modify_item;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -63,6 +66,22 @@ public class writing_page extends AppCompatActivity {
 ////                adapter.notifyDataSetChanged();
 
 
+        Intent receive = getIntent();
+        int mo_position = receive.getIntExtra("r_position",0);
+        String mo_name = receive.getStringExtra("r_name");
+        String mo_content = receive.getStringExtra("r_content");
+
+
+
+        if(mo_name != null){
+            et_name.setText(mo_name);
+        }
+        if(mo_content != null){
+           et_content.setText(mo_content);
+        }
+
+
+
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,10 +89,20 @@ public class writing_page extends AppCompatActivity {
                 String content = et_content.getText().toString();
 
 
-                Intent send = new Intent(writing_page.this, MainActivity.class);
+                Intent send = getIntent();
+//                Intent send = new Intent(writing_page.this, MainActivity.class);
 //
                 send.putExtra("new_name", name);
                 send.putExtra("new_content", content);
+
+
+//                if(mo_name == null){
+                    setResult(add_item,send);
+//                }else{
+//                    send.putExtra("go_position",mo_position);
+//                    setResult(modify_item,send);
+
+//                }
 
 
                 finish();

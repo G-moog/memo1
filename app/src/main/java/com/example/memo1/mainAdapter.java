@@ -16,17 +16,10 @@ import java.util.ArrayList;
 
 public class mainAdapter extends RecyclerView.Adapter<mainAdapter.CustomViewHolder> {
 
-    private ArrayList<rv_data> arrayList;
+    private ArrayList<rv_data> arrayList = new ArrayList<>();
     private Context context;
 
-    public mainAdapter(Context context) {
-        this.context = context;
-    }
 
-    public mainAdapter(ArrayList<rv_data> arrayList) {
-        this.arrayList = arrayList;
-
-    }
 
     @NonNull
     @Override
@@ -64,11 +57,13 @@ public class mainAdapter extends RecyclerView.Adapter<mainAdapter.CustomViewHold
 //                intent.putExtra("m_content",m_content);
 //                context.startActivity(intent); //액티비티 열기
 
+//
+//                intent = new Intent(v.getContext(), writing_page.class);
+//                intent.putExtra("m_name", holder.getAdapterPosition());
+//                intent.putExtra("m_content",arrayList.get(holder.getAdapterPosition()).getTv_content());
+//                v.getContext().startActivity(intent);
 
-                intent = new Intent(v.getContext(), writing_page.class);
-                intent.putExtra("m_name", holder.getAdapterPosition());
-                intent.putExtra("m_content",arrayList.get(holder.getAdapterPosition()).getTv_content());
-                v.getContext().startActivity(intent);
+                ((MainActivity)v.getContext()).startWritingPage(holder.getAdapterPosition(),item.getTv_name(),item.getTv_content());
 
 
 
@@ -101,6 +96,13 @@ public class mainAdapter extends RecyclerView.Adapter<mainAdapter.CustomViewHold
         notifyDataSetChanged();
 
     }
+
+    public void modifyList(rv_data item,int position){
+
+        arrayList.set(position,item);
+        notifyDataSetChanged();
+    }
+
 
     public void remove(int position){
         try{
